@@ -3,6 +3,7 @@ from mailer import Mailer
 
 def main():
     mailer = Mailer()
+    print 'Start Mailer'
     mailer.start()
     print 'Finished Successfully'
 

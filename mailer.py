@@ -25,7 +25,6 @@ class Mailer:
         return data
 
     def start(self):
-        print 'Start Mailer'
         self.open_home_page()
         self.go_to_login_page()
         self.submit_login_form()
