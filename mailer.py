@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 import time
+from women_done import WomenDone
 
 
 class Mailer:
@@ -25,6 +26,7 @@ class Mailer:
         return data
 
     def start(self):
+        wd = WomenDone()
         self.open_home_page()
         self.go_to_login_page()
         self.submit_login_form()
@@ -32,7 +34,10 @@ class Mailer:
         self.go_to_women_list()
         self.collect_women_search_profile_links()
         for woman_link in self.women_send_intro_links:
-            self.send_letters_for_woman(woman_link)
+            if woman_link not in wd.get():
+                print woman_link
+                self.send_letters_for_woman(woman_link)
+                wd.add(woman_link)
 
     def open_home_page(self):
         self.driver.get(self.base_url)
