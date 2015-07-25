@@ -30,6 +30,7 @@ class Mailer:
         self.open_home_page()
         self.go_to_login_page()
         self.submit_login_form()
+        time.sleep(2)
         self.submit_agree_with_rules_form()
         self.go_to_women_list()
         self.collect_women_search_profile_links()

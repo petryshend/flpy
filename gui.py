@@ -54,8 +54,7 @@ class Gui:
                 button = Button(
                     self.women_done_frame,
                     text="Clear " + str(woman),
-                    command=lambda url=woman: self.clear_woman(url),
-                    fg="green"
+                    command=lambda url=woman: self.clear_woman(url)
                 )
                 buttons.append(button)
             for button in buttons:
