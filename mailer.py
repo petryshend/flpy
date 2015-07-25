@@ -4,20 +4,21 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 import time
+from credentials import Credentials
 from women_done import WomenDone
 
 
 class Mailer:
 
     base_url = 'http://www.foreignladies.com'
-    username = 'LugaAgency'
-    password = 'range683zip'
 
     def __init__(self):
         self.driver = webdriver.Firefox()
         self.women_send_intro_links = []
         self.men = self.load_men_array_from_json()
         self.men_countries = list(self.men.keys())
+        self.username = Credentials.get()['username']
+        self.password = Credentials.get()['password']
 
     @staticmethod
     def load_men_array_from_json():
