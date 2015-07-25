@@ -16,6 +16,11 @@ class WomenDone:
     def get(self):
         return self.women_done['urls']
 
+    def remove(self, url):
+        if url in self.women_done['urls']:
+            self.women_done['urls'].remove(url)
+            self.write()
+
     def clear(self):
         self.women_done['urls'] = []
         self.write()
