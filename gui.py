@@ -79,10 +79,5 @@ class Gui:
         print "Cleared All"
 
     def close_gui(self):
-        self.root.quit()
+        self.root.destroy()
 
-
-
-if __name__ == '__main__':
-    gui = Gui()
-    gui.start()
