@@ -1,4 +1,4 @@
-from Tkconstants import TOP, BOTTOM, LEFT, RIGHT
+from Tkconstants import TOP, BOTTOM
 from Tkinter import Tk, Entry, Label, mainloop, Button, StringVar, Frame
 from credentials import Credentials
 from women_done import WomenDone
@@ -41,24 +41,25 @@ class Gui:
     def construct_women_done_frame(self):
         wd = WomenDone()
         women_done = wd.get()
-        clear_all_button = Button(
-            self.women_done_frame,
-            text="Clear ALL",
-            command=self.clear_all,
-            bg="lightblue"
-        )
-        clear_all_button.pack()
-        buttons = []
-        for i, woman in enumerate(women_done):
-            button = Button(
+        if len(women_done):
+            clear_all_button = Button(
                 self.women_done_frame,
-                text="Clear " + str(woman),
-                command=lambda url=woman: self.clear_woman(url),
-                fg="green"
+                text="Clear ALL",
+                command=self.clear_all,
+                bg="lightblue"
             )
-            buttons.append(button)
-        for button in buttons:
-            button.pack()
+            clear_all_button.pack()
+            buttons = []
+            for i, woman in enumerate(women_done):
+                button = Button(
+                    self.women_done_frame,
+                    text="Clear " + str(woman),
+                    command=lambda url=woman: self.clear_woman(url),
+                    fg="green"
+                )
+                buttons.append(button)
+            for button in buttons:
+                button.pack()
 
     def save_credentials(self):
         credentials = {
