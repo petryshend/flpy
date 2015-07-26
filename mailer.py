@@ -36,10 +36,10 @@ class Mailer:
         self.go_to_women_list()
         self.collect_women_search_profile_links()
         for woman_link in self.women_send_intro_links:
-            if woman_link not in wd.get():
-                print woman_link
+            if woman_link not in wd.get().keys():
                 self.send_letters_for_woman(woman_link)
-                wd.add(woman_link)
+                woman_name = self.extract_woman_name()
+                wd.add(woman_link, woman_name)
 
     def open_home_page(self):
         self.driver.get(self.base_url)
@@ -160,4 +160,9 @@ class Mailer:
         send_message_button = self.driver.find_element(
             By.CSS_SELECTOR, 'input[name=btn_submit]')
         send_message_button.click()
+
+    def extract_woman_name(self):
+        name_link = self.driver.find_element(By.CSS_SELECTOR, 'div.f_left a')
+        return name_link.text
+
         

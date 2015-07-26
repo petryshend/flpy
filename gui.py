@@ -50,11 +50,11 @@ class Gui:
             )
             clear_all_button.pack()
             buttons = []
-            for i, woman in enumerate(women_done):
+            for url_key in women_done.keys():
                 button = Button(
                     self.women_done_frame,
-                    text="Clear " + str(woman),
-                    command=lambda url=woman: self.clear_woman(url)
+                    text="Clear " + str(women_done[url_key]),
+                    command=lambda url=url_key: self.clear_woman(url)
                 )
                 buttons.append(button)
             for button in buttons:
@@ -73,7 +73,7 @@ class Gui:
         print "Cleared: " + str(url)
 
     def clear_all(self):
-        wd= WomenDone()
+        wd = WomenDone()
         wd.clear()
         print "Cleared All"
 
