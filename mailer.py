@@ -117,11 +117,13 @@ class Mailer:
 
     def check_all_and_click_green_big_send_button(self):
         if not self.has_men_search_results():
+            print 'No results'
             return
         self.check_all_men()
         self.click_big_green_button()
         does_not_want = 'User does not want to receive intro letters!'
         if does_not_want in self.driver.page_source:
+            print 'Does not want'
             return
         self.select_intro_letter()
         self.select_photo_to_attach()
@@ -145,8 +147,11 @@ class Mailer:
 
     def select_intro_letter(self):
         select_intro_letter = self.driver.find_element(By.CSS_SELECTOR, 'select#intro_letter')
+        time.sleep(1)
         select_intro_letter.send_keys(Keys.ARROW_DOWN)
+        time.sleep(1)
         select_intro_letter.send_keys(Keys.ENTER)
+        time.sleep(1)
 
     def select_photo_to_attach(self):
         chose_photos_attached_button = self.driver.find_element(
