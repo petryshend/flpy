@@ -41,6 +41,9 @@ class Mailer:
                 woman_name = self.extract_woman_name()
                 wd.add(woman_link, woman_name)
 
+    def close_mailer(self):
+        self.driver.close()
+
     def open_home_page(self):
         self.driver.get(self.base_url)
 
