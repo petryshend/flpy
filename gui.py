@@ -48,7 +48,7 @@ class Gui:
                 command=self.clear_all,
                 bg="lightblue"
             )
-            clear_all_button.pack()
+            clear_all_button.grid(row=0, column=0)
             buttons = []
             for url_key in women_done.keys():
                 button = Button(
@@ -57,8 +57,14 @@ class Gui:
                     command=lambda url=url_key: self.clear_woman(url)
                 )
                 buttons.append(button)
+            button_row_count = 1
+            button_column_count = 0
             for button in buttons:
-                button.pack()
+                button.grid(row=button_row_count, column=button_column_count)
+                button_row_count += 1
+                if button_row_count >= 15:
+                    button_row_count = 0
+                    button_column_count += 1
 
     def save_credentials(self):
         credentials = {
