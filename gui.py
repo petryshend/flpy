@@ -54,7 +54,7 @@ class Gui:
                 button = Button(
                     self.women_done_frame,
                     text="Clear " + str(women_done[url_key]),
-                    command=lambda url=url_key: self.clear_woman(url)
+                    command=lambda url=url_key: self.clear_woman(url, button)
                 )
                 buttons.append(button)
             button_row_count = 1
@@ -73,9 +73,10 @@ class Gui:
         }
         Credentials.save(credentials)
 
-    def clear_woman(self, url):
+    def clear_woman(self, url, button):
         wd = WomenDone()
         wd.remove(url)
+        button.destroy()
         print "Cleared: " + str(url)
 
     def clear_all(self):
