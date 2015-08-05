@@ -113,6 +113,14 @@ class Mailer:
             By.CSS_SELECTOR, 'select[name=profile_default_pic]')
         photos.send_keys('Profiles with Photos')
 
+        russian_girls_checkbox = self.driver.find_element(By.ID, 'Q_69_935')
+        if not russian_girls_checkbox.is_selected():
+            russian_girls_checkbox.click()
+        any_girls_checkbox = self.driver.find_element(By.ID, 'Q_69_-1')
+        if any_girls_checkbox.is_selected():
+            any_girls_checkbox.click()
+        time.sleep(1)
+
     def click_submit_search_button(self):
         submit_button = self.driver.find_element(
             By.CSS_SELECTOR, 'input[name=btn_submit]')
