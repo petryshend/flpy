@@ -12,7 +12,8 @@ class Mailer:
 
     base_url = 'http://www.foreignladies.com'
 
-    def __init__(self):
+    def __init__(self, only_with_photos):
+        self.only_with_photos = only_with_photos
         self.driver = webdriver.Firefox()
         self.women_send_intro_links = []
         self.men = self.load_men_array_from_json()
@@ -109,9 +110,10 @@ class Mailer:
             By.CSS_SELECTOR, 'select[name=last_activity]')
         last_activity.send_keys('Less than 6 months ago')
 
-        photos = self.driver.find_element(
-            By.CSS_SELECTOR, 'select[name=profile_default_pic]')
-        photos.send_keys('Profiles with Photos')
+        if self.only_with_photos:
+            photos = self.driver.find_element(
+                By.CSS_SELECTOR, 'select[name=profile_default_pic]')
+            photos.send_keys('Profiles with Photos')
 
         russian_girls_checkbox = self.driver.find_element(By.ID, 'Q_69_935')
         if not russian_girls_checkbox.is_selected():

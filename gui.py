@@ -1,5 +1,5 @@
 from Tkconstants import TOP, BOTTOM
-from Tkinter import Tk, Entry, Label, mainloop, Button, StringVar, Frame
+from Tkinter import Tk, Entry, Label, mainloop, Button, StringVar, Frame, Checkbutton, IntVar
 from credentials import Credentials
 from women_done import WomenDone
 
@@ -8,6 +8,7 @@ class Gui:
 
     def __init__(self):
         self.root = Tk()
+        Gui.only_with_photos = IntVar()
         self.credentials_frame = Frame(self.root)
         self.women_done_frame = Frame(self.root)
         self.credentials_frame.pack(side=TOP)
@@ -22,6 +23,7 @@ class Gui:
     def start(self):
         self.construct_credentials_fields()
         self.construct_women_done_frame()
+        self.construct_only_with_photo_checkbox()
         mainloop()
 
     def construct_credentials_fields(self):
@@ -37,6 +39,10 @@ class Gui:
         self.password_entry.grid(row=1, column=1)
         save_button.grid(row=2, column=0)
         start_mailer_button.grid(row=2, column=1)
+
+    def construct_only_with_photo_checkbox(self):
+        checkbox = Checkbutton(self.credentials_frame, text='Only with photos', variable=self.only_with_photos)
+        checkbox.grid(row=0, column=2)
 
     def construct_women_done_frame(self):
         wd = WomenDone()
