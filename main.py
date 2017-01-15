@@ -16,8 +16,9 @@ def main():
             mailer = Mailer(only_with_photos)
             mailer.start()
             print 'Finished Successfully'
-        except Exception:
+        except Exception as ex:
             print 'Something went wrong... Restarting...'
+            print ex
             mailer.close_mailer()
             time.sleep(10)
         else:

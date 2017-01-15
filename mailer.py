@@ -54,6 +54,7 @@ class Mailer:
         login_link.click()
 
     def submit_login_form(self):
+        time.sleep(1)
         username_input = self.driver.find_element(By.ID, 'logins_ident')
         username_input.send_keys(self.username)
 
@@ -64,6 +65,7 @@ class Mailer:
         submit_button.click()
 
     def submit_agree_with_rules_form(self):
+        time.sleep(2)
         understand_radio = self.driver.find_element(By.CSS_SELECTOR, 'input[value=\"yes\"]')
         understand_radio.click()
 
@@ -90,8 +92,11 @@ class Mailer:
                 country_select.send_keys(country)
                 self.set_age_range(age_range)
                 time.sleep(1)
+                expand_button = self.driver.find_element(By.CSS_SELECTOR, 'a.btn_expand')
+                expand_button.click()
                 self.check_other_search_criteria()
                 self.click_submit_search_button()
+                time.sleep(5)
                 self.check_all_and_click_green_big_send_button()
                 self.driver.get(woman_link)
 
@@ -159,6 +164,7 @@ class Mailer:
         send_intro_button.click()
 
     def select_intro_letter(self):
+        time.sleep(5)
         select_intro_letter = self.driver.find_element(By.CSS_SELECTOR, 'select#intro_letter')
         time.sleep(1)
         select_intro_letter.send_keys(Keys.ARROW_DOWN)
