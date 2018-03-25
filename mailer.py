@@ -15,6 +15,7 @@ class Mailer:
     def __init__(self, only_with_photos):
         self.only_with_photos = only_with_photos
         self.driver = webdriver.Firefox()
+        self.driver.set_page_load_timeout(3600)
         self.women_send_intro_links = []
         self.men = self.load_men_array_from_json()
         self.men_countries = list(self.men.keys())
@@ -154,9 +155,15 @@ class Mailer:
         return True
 
     def check_all_men(self):
-        check_all = self.driver.find_element(
-            By.CSS_SELECTOR, 'input.check_all')
-        check_all.click()
+        select_all_dropdown = self.driver.find_element(
+            By.CSS_SELECTOR, 'button.ms-choice'
+        )
+        select_all_dropdown.click()
+        time.sleep(1)
+        select_all_check = self.driver.find_element(
+            By.CSS_SELECTOR, 'input[data-name="selectAll"]'
+        )
+        select_all_check.click()
 
     def click_big_green_button(self):
         send_intro_button = self.driver.find_element(
@@ -188,5 +195,3 @@ class Mailer:
     def extract_woman_name(self):
         name_link = self.driver.find_element(By.CSS_SELECTOR, 'div.f_left a')
         return name_link.text
-
-        
