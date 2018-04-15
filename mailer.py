@@ -1,5 +1,6 @@
 import json
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -138,32 +139,45 @@ class Mailer:
         if not self.has_men_search_results():
             print 'No results'
             return
-        self.check_all_men()
-        self.click_big_green_button()
-        does_not_want = 'User does not want to receive intro letters!'
-        if does_not_want in self.driver.page_source:
-            print 'Does not want'
-            return
-        self.select_intro_letter()
-        self.select_photo_to_attach()
-        self.click_send_message_button()
+
+        current_href = self.driver.current_url
+
+        select_all_dropdown = self.driver.find_element(
+            By.CSS_SELECTOR, 'button.ms-choice'
+        )
+        select_all_dropdown.click()
+        time.sleep(1)
+
+        dropdown = self.driver.find_element(By.CSS_SELECTOR, '.ms-drop.bottom')
+        batch_checkbox_inputs = dropdown.find_elements(By.CSS_SELECTOR, 'input[data-name="selectItem"]')
+        batch_values = []
+        for checkboxInput in batch_checkbox_inputs:
+            batch_values.append(checkboxInput.get_attribute('value'))
+
+        for value in batch_values:
+            checkbox = self.driver.find_element(By.CSS_SELECTOR, 'input[value="' + value + '"]')
+            checkbox.click()
+            self.click_big_green_button()
+            does_not_want = 'User does not want to receive intro letters!'
+            if does_not_want in self.driver.page_source:
+                print 'Does not want'
+                return
+            self.select_intro_letter()
+            self.select_photo_to_attach()
+            self.click_send_message_button()
+            time.sleep(1)
+            self.driver.get(current_href)
+            select_all_dropdown = self.driver.find_element(
+                By.CSS_SELECTOR, 'button.ms-choice'
+            )
+            select_all_dropdown.click()
+            time.sleep(1)
 
     def has_men_search_results(self):
         no_results_error_span = self.driver.find_elements(By.CSS_SELECTOR, 'span.error_star')
         if len(no_results_error_span) != 0:
             return False
         return True
-
-    def check_all_men(self):
-        select_all_dropdown = self.driver.find_element(
-            By.CSS_SELECTOR, 'button.ms-choice'
-        )
-        select_all_dropdown.click()
-        time.sleep(1)
-        select_all_check = self.driver.find_element(
-            By.CSS_SELECTOR, 'input[data-name="selectAll"]'
-        )
-        select_all_check.click()
 
     def click_big_green_button(self):
         send_intro_button = self.driver.find_element(
